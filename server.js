@@ -40,7 +40,6 @@ io.on('connection', (socket)=>{
         });
         newChat.save();
 
-        // broadcast this message to all the clients.
         socket.broadcast.emit('broadcast_message', userMessage);
     })
     socket.on('disconnect', (message)=>{

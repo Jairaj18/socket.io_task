@@ -18,16 +18,12 @@
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 
     <script>
-        // socket code in js.
+        
         const socket = io.connect('http://localhost:3000');
         const username = prompt("Enter your name");
-
-        //emit the username to the server.
+        
         socket.emit("join", username);
 
-        
-
-        // message chat 
         const messageInput = document.getElementById("message-input");
         const messageList = document.getElementById("message-list");
         const sendButton = document.getElementById("send-message");
@@ -37,10 +33,9 @@
             const message = messageInput.value;
             
             if (message) {
-                socket.emit('new_message', message); // Emitting the message to the server
-
+                socket.emit('new_message', message);
                 const messageElement = document.createElement("div");
-                messageElement.innerText = username+": "+ message;
+                messageElement.innerText = username+" : "+ message;
                 messageList.appendChild(messageElement);
                 messageInput.value = '';
             }
@@ -49,7 +44,7 @@
         // Listen for broadcast message, anding it to list 
         socket.on('broadcast_message', (userMessage) => {
             const messageElement = document.createElement("div");
-            messageElement.innerText = userMessage.username+":"+userMessage.message;
+            messageElement.innerText = userMessage.username+" : "+userMessage.message;
             messageList.appendChild(messageElement);
         })
 
